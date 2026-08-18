@@ -1,0 +1,35 @@
+{
+  "name": "vacation_picker",
+  "version": "1.0.0",
+  "description": "Under construction.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kidp8479/vacation_picker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/kidp8479/vacation_picker/issues"
+  },
+  "homepage": "https://github.com/kidp8479/vacation_picker#readme",
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^17.3.0"
+  },
+  "lint-staged": {
+    "backend/**/*.ts": [
+      "npm --prefix backend run lint",
+      "npm --prefix backend run format"
+    ]
+  }
+}
