@@ -14,4 +14,9 @@ export class AppController {
   getDbTime(): Promise<{ now: Date }> {
     return this.appService.getDbTime();
   }
+
+  @Get('health')
+  getHealth(): { status: string } {
+    return { status: 'ok' };
+  }
 }

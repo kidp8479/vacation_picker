@@ -8,7 +8,7 @@ export class DatabaseService implements OnModuleDestroy {
 
   constructor(private readonly configService: ConfigService) {
     this.pool = new Pool({
-      host: 'localhost',
+      host: this.configService.get<string>('POSTGRES_HOST', 'localhost'),
       port: 5432,
       user: this.configService.get<string>('POSTGRES_USER'),
       password: this.configService.get<string>('POSTGRES_PASSWORD'),
