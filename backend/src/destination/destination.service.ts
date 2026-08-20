@@ -10,9 +10,8 @@ export class DestinationService {
 
   async create(createDestinationDto: CreateDestinationDto) {
     const result = await this.databaseService.query<Destination>(
-      `
-      INSERT INTO destination (title, subtitle, photo_url, transport, body_description)
-      VALUES ($1, $2, $3, $4, $5) 
+      `INSERT INTO destination (title, subtitle, photo_url, transport, body_description)
+      VALUES ($1, $2, $3, $4, $5)
       RETURNING * `,
       [
         createDestinationDto.title,
@@ -25,8 +24,12 @@ export class DestinationService {
     return result.rows[0];
   }
 
-  findAll() {
-    return `This action returns all destination`;
+  async findAll() {
+    const result = await this.databaseService.query<Destination>(
+      `SELECT *
+      FROM destination`,
+    );
+    return result.rows;
   }
 
   findOne(id: number) {
