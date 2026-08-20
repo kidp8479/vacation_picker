@@ -16,7 +16,7 @@ services:
       start_period: 15s
     restart: unless-stopped
     ports:
-      - "5432:5432"
+      - "${POSTGRES_PORT}:5432"
 
   backend:
     build:
@@ -42,7 +42,7 @@ services:
       start_period: 10s
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "${BACKEND_PORT}:3000"
 
   frontend:
     build:
@@ -54,7 +54,7 @@ services:
       - backend
     restart: unless-stopped
     ports:
-      - "5173:5173"
+      - "${FRONTEND_PORT}:5173"
 
 volumes:
   db_data:
