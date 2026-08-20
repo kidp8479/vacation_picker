@@ -2,7 +2,7 @@ CREATE TABLE destination (
     id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
     subtitle TEXT,
-    photo_url TEXT,
+    photo_url TEXT NOT NULL,
     transport TEXT NOT NULL,
     body_description TEXT NOT NULL
 );
