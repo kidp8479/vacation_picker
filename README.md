@@ -13,17 +13,15 @@ A small app to help pick a vacation destination: browse a few proposals as cards
 
 ## Infra
 
-- `db` and `backend` run as Docker Compose services (`docker-compose.yml`), backend with a bind-mounted `backend/` for hot-reload
+- `db`, `backend`, and `frontend` all run as Docker Compose services (`docker-compose.yml`), backend and frontend with a bind mount on their own directory for hot-reload
 - `db` init scripts (`db/init/*.sql`) run automatically on first boot of an empty volume
-- `frontend` runs locally with `npm run dev` for now (not yet containerized)
 - Local tooling: Husky pre-commit (lint + format on staged files) and pre-push (backend tests) hooks
 
 ## Getting started
 
 ```bash
 make install   # install root, backend, and frontend dependencies
-make up        # start db + backend in Docker
-make fe-dev    # run the frontend dev server locally
+make up        # start db + backend + frontend in Docker
 ```
 
 ## Makefile commands
