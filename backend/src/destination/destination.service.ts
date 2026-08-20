@@ -32,8 +32,14 @@ export class DestinationService {
     return result.rows;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} destination`;
+  async findOne(id: number) {
+    const result = await this.databaseService.query<Destination>(
+      `SELECT *
+      FROM destination
+      WHERE id = $1`,
+      [id],
+    );
+    return result.rows[0];
   }
 
   update(id: number, _updateDestinationDto: UpdateDestinationDto) {
