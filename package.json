@@ -1,0 +1,39 @@
+{
+  "name": "vacation_picker",
+  "version": "1.0.0",
+  "description": "Under construction.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kidp8479/vacation_picker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/kidp8479/vacation_picker/issues"
+  },
+  "homepage": "https://github.com/kidp8479/vacation_picker#readme",
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^17.3.0"
+  },
+  "lint-staged": {
+    "backend/**/*.ts": [
+      "sh -c 'cd backend && npx eslint --fix \"$@\"' --",
+      "sh -c 'cd backend && npx prettier --write \"$@\"' --"
+    ],
+    "frontend/**/*.{ts,tsx}": [
+      "sh -c 'cd frontend && npx eslint --fix \"$@\"' --",
+      "sh -c 'cd frontend && npx prettier --write \"$@\"' --"
+    ]
+  }
+}
