@@ -68,7 +68,13 @@ export class DestinationService {
     return result.rows[0];
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} destination`;
+  async remove(id: number) {
+    const result = await this.databaseService.query<Destination>(
+      `DELETE FROM destination
+      WHERE id = $1
+      RETURNING *`,
+      [id],
+    );
+    return result.rows[0];
   }
 }
