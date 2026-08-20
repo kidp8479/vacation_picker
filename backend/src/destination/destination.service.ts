@@ -1,8 +1,27 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateDestinationDto } from './dto/create-destination.dto';
 import { UpdateDestinationDto } from './dto/update-destination.dto';
 import { DatabaseService } from '../database/database.service';
 import { Destination } from './interfaces/destination.interfaces';
+
+const UPDATABLE_FIELDS: (keyof UpdateDestinationDto)[] = [
+  'title',
+  'subtitle',
+  'photo_url',
+  'transport',
+  'body_description',
+];
+
+const NON_NULLABLE_FIELDS: (keyof UpdateDestinationDto)[] = [
+  'title',
+  'photo_url',
+  'transport',
+  'body_description',
+];
 
 @Injectable()
 export class DestinationService {
@@ -44,7 +63,8 @@ export class DestinationService {
   /**
    * Finds a single destination by id.
    * @param id - the destination's primary key
-   * @returns the matching destination, or undefined if no row has this id
+   * @returns the matching destination
+   * @throws NotFoundException if no row has this id
    */
   async findOne(id: number) {
     const result = await this.databaseService.query<Destination>(
@@ -53,7 +73,11 @@ export class DestinationService {
       WHERE id = $1`,
       [id],
     );
-    return result.rows[0];
+    const destination = result.rows[0];
+    if (!destination) {
+      throw new NotFoundException(`Destination ${id} not found`);
+    }
+    return destination;
   }
 
   /**
@@ -64,18 +88,24 @@ export class DestinationService {
    * @param id - the destination's primary key
    * @param updateDestinationDto - the subset of fields to change
    * @returns the updated destination
+   * @throws BadRequestException if the body has no updatable fields, or sets
+   *   a non-nullable column to null
+   * @throws NotFoundException if no row has this id
    */
   async update(id: number, updateDestinationDto: UpdateDestinationDto) {
-    const allowedFields: (keyof UpdateDestinationDto)[] = [
-      'title',
-      'subtitle',
-      'photo_url',
-      'transport',
-      'body_description',
-    ];
-    const fieldsToUpdate = allowedFields.filter(
+    for (const field of NON_NULLABLE_FIELDS) {
+      if (updateDestinationDto[field] === null) {
+        throw new BadRequestException(`${field} cannot be null`);
+      }
+    }
+
+    const fieldsToUpdate = UPDATABLE_FIELDS.filter(
       (field) => updateDestinationDto[field] !== undefined,
     );
+    if (fieldsToUpdate.length === 0) {
+      throw new BadRequestException('At least one field must be provided');
+    }
+
     const setClause = fieldsToUpdate
       .map((field, index) => `${field} = $${index + 1}`)
       .join(', ');
@@ -88,13 +118,18 @@ export class DestinationService {
       RETURNING *`,
       [...values, id],
     );
-    return result.rows[0];
+    const destination = result.rows[0];
+    if (!destination) {
+      throw new NotFoundException(`Destination ${id} not found`);
+    }
+    return destination;
   }
 
   /**
    * Deletes a destination by id.
    * @param id - the destination's primary key
    * @returns the deleted destination, so the caller can confirm what was removed
+   * @throws NotFoundException if no row has this id
    */
   async remove(id: number) {
     const result = await this.databaseService.query<Destination>(
@@ -103,6 +138,10 @@ export class DestinationService {
       RETURNING *`,
       [id],
     );
-    return result.rows[0];
+    const destination = result.rows[0];
+    if (!destination) {
+      throw new NotFoundException(`Destination ${id} not found`);
+    }
+    return destination;
   }
 }

@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { DestinationService } from './destination.service';
 import { DatabaseService } from '../database/database.service';
 
@@ -86,12 +87,10 @@ describe('DestinationService', () => {
       expect(result).toEqual(sampleDestination);
     });
 
-    it('returns undefined when no row matches', async () => {
+    it('throws NotFoundException when no row matches', async () => {
       databaseService.query.mockResolvedValue({ rows: [] });
 
-      const result = await service.findOne(999);
-
-      expect(result).toBeUndefined();
+      await expect(service.findOne(999)).rejects.toThrow(NotFoundException);
     });
   });
 
@@ -119,6 +118,26 @@ describe('DestinationService', () => {
         ['New title', 'train', 1],
       );
     });
+
+    it('throws BadRequestException when the body has no updatable fields', async () => {
+      await expect(service.update(1, {})).rejects.toThrow(BadRequestException);
+      expect(databaseService.query).not.toHaveBeenCalled();
+    });
+
+    it('throws BadRequestException when a non-nullable field is set to null', async () => {
+      await expect(
+        service.update(1, { title: null as unknown as string }),
+      ).rejects.toThrow(BadRequestException);
+      expect(databaseService.query).not.toHaveBeenCalled();
+    });
+
+    it('throws NotFoundException when no row matches the id', async () => {
+      databaseService.query.mockResolvedValue({ rows: [] });
+
+      await expect(service.update(999, { title: 'New title' })).rejects.toThrow(
+        NotFoundException,
+      );
+    });
   });
 
   describe('remove', () => {
@@ -132,6 +151,12 @@ describe('DestinationService', () => {
         [1],
       );
       expect(result).toEqual(sampleDestination);
+    });
+
+    it('throws NotFoundException when no row matches', async () => {
+      databaseService.query.mockResolvedValue({ rows: [] });
+
+      await expect(service.remove(999)).rejects.toThrow(NotFoundException);
     });
   });
 });

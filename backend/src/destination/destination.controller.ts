@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { DestinationService } from './destination.service';
 import { CreateDestinationDto } from './dto/create-destination.dto';
@@ -38,8 +39,8 @@ export class DestinationController {
    * Returns a single destination by id.
    */
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.destinationService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.destinationService.findOne(id);
   }
 
   /**
@@ -48,10 +49,10 @@ export class DestinationController {
    */
   @Patch(':id')
   update(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateDestinationDto: UpdateDestinationDto,
   ) {
-    return this.destinationService.update(+id, updateDestinationDto);
+    return this.destinationService.update(id, updateDestinationDto);
   }
 
   /**
@@ -59,7 +60,7 @@ export class DestinationController {
    * Removes a destination by id.
    */
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.destinationService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.destinationService.remove(id);
   }
 }

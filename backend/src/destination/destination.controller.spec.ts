@@ -43,19 +43,19 @@ describe('DestinationController', () => {
     expect(service.findAll).toHaveBeenCalled();
   });
 
-  it('findOne converts the id param to a number', async () => {
-    await controller.findOne('1');
+  it('findOne forwards the parsed id to the service', async () => {
+    await controller.findOne(1);
     expect(service.findOne).toHaveBeenCalledWith(1);
   });
 
-  it('update converts the id param and forwards the dto', async () => {
+  it('update forwards the parsed id and dto to the service', async () => {
     const dto = { title: 'Slovenia (updated)' };
-    await controller.update('1', dto);
+    await controller.update(1, dto);
     expect(service.update).toHaveBeenCalledWith(1, dto);
   });
 
-  it('remove converts the id param to a number', async () => {
-    await controller.remove('1');
+  it('remove forwards the parsed id to the service', async () => {
+    await controller.remove(1);
     expect(service.remove).toHaveBeenCalledWith(1);
   });
 });
