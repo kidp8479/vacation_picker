@@ -8,7 +8,7 @@ install:
 	npm --prefix backend install
 	npm --prefix frontend install
 
-## start the docker stack (db + backend) in the background
+## start the docker stack (db + backend + frontend) in the background
 up:
 	docker compose up -d
 

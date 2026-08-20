@@ -9,7 +9,6 @@ A small app to help pick a vacation destination: browse a few proposals as cards
 - **Frontend**: React + TypeScript, bootstrapped with Vite
 - **Backend**: NestJS + TypeScript, raw SQL via `pg` (no ORM, by design, for SQL fundamentals practice)
 - **Database**: PostgreSQL
-- **Docs**: Compodoc (generated API docs, `backend/`)
 
 ## Infra
 
@@ -31,7 +30,7 @@ make up                 # start db + backend + frontend in Docker
 | Command | What it does |
 |---|---|
 | `make install` | Install dependencies (root tooling, backend, frontend) |
-| `make up` | Start the Docker stack (db + backend) in the background |
+| `make up` | Start the Docker stack (db + backend + frontend) in the background |
 | `make down` | Stop the Docker stack, keep data |
 | `make reset` | Stop the stack and wipe data (forces `db/init` scripts to rerun) |
 | `make logs` | Follow every container's logs |
