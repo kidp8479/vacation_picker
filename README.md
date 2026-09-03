@@ -1,8 +1,8 @@
 # vacation_picker
 
-Under construction.
-
 A small app to help pick a vacation destination: browse a few proposals as cards, click one to see the details (advantages, budget, transport, hashtags).
+
+Work in progress.
 
 ## Stack
 
