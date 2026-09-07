@@ -6,7 +6,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "npm --prefix backend test",
+    "test": "npm --prefix backend test && npm --prefix frontend test",
     "prepare": "husky"
   },
   "repository": {

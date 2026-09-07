@@ -1,6 +1,6 @@
 .PHONY: install up down reset logs ps \
 	be-dev be-build be-lint be-format be-test \
-	fe-dev fe-build fe-lint fe-format
+	fe-dev fe-build fe-lint fe-format fe-test
 
 ## install all dependencies (root tooling, backend, frontend)
 install:
@@ -64,3 +64,7 @@ fe-lint:
 ## format the frontend
 fe-format:
 	npm --prefix frontend run format
+
+## run frontend unit tests
+fe-test:
+	npm --prefix frontend test

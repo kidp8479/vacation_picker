@@ -38,7 +38,7 @@ npm --prefix frontend run build
 ```
 
 A husky pre-commit hook runs `lint-staged` (eslint + prettier on staged
-files); pre-push runs the backend tests. CI (`.github/workflows/ci.yml`)
+files); pre-push runs the backend and frontend tests. CI (`.github/workflows/ci.yml`)
 runs the full set above for both packages, plus a gitleaks secret scan,
 on every push to `main` and every PR. Don't bypass them (`--no-verify`).
 
