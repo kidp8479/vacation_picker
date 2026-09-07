@@ -2,6 +2,7 @@
 .env
 api-docs/
 coverage/
-docs/
+docs/*
+!docs/adr/
 node_modules/
 *.log
