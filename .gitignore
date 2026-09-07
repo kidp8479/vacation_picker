@@ -1,5 +1,7 @@
 .DS_Store
 .env
+# Agent working notes, kept local (see CONTRIBUTING.md for shared conventions)
+CLAUDE.md
 api-docs/
 coverage/
 docs/*
