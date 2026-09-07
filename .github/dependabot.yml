@@ -11,12 +11,22 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
+    # NestJS 12 is ESM-only: bumping it needs a jest/ts-jest ESM migration
+    # and Node 24 in CI, not a version bump. Revisit as a planned upgrade.
+    ignore:
+      - dependency-name: "@nestjs/*"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: npm
     directory: /frontend
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
+    # TypeScript majors pull peer-dep conflicts with the pinned
+    # typescript-eslint; upgrade the toolchain together, deliberately.
+    ignore:
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: github-actions
     directory: /
