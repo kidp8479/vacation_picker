@@ -26,6 +26,9 @@ export default tseslint.config(
   },
   {
     rules: {
+      // Complexity budget. Set at the current ceiling (DestinationService.update);
+      // the ratchet only goes down - split the function, don't raise the number.
+      complexity: ['error', 5],
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-floating-promises': 'warn',
       '@typescript-eslint/no-unsafe-argument': 'warn',
