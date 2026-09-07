@@ -32,6 +32,8 @@ npm --prefix backend test
 # frontend
 npm --prefix frontend run format:check
 npm --prefix frontend run lint:check
+npm --prefix frontend run typecheck
+npm --prefix frontend test
 npm --prefix frontend run build
 ```
 
