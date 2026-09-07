@@ -53,6 +53,8 @@ not a durable record.
   identifier name earns nothing.
 - Public surface (exported classes/methods, HTTP routes) gets a doc
   comment; obvious private code does not.
+- ESLint enforces a complexity budget on the backend (`complexity` set at
+  the current ceiling): split the function, don't raise the number.
 
 ## Secrets
 
